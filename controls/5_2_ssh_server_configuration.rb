@@ -73,7 +73,7 @@ control 'cis-dil-benchmark-5.2.4' do
   tag level: 1
 
   describe sshd_config do
-    its(:X11Forwarding) { should eq 'no' }
+    its(:X11Forwarding) { should include 'no' }
   end
 end
 
@@ -164,11 +164,11 @@ control 'cis-dil-benchmark-5.2.11' do
   tag level: 1
 
   describe sshd_config do
-    its(:Ciphers) { should_not be_nil }
+    its(:MACs) { should_not be_nil }
   end
 
-  if sshd_config.Ciphers
-    describe sshd_config.Ciphers.split(',').each do
+  if sshd_config.MACs
+    describe sshd_config.MACs.split(',').each do
       it { should_not match(/-cbc$/) }
     end
   end

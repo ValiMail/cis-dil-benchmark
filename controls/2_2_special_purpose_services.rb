@@ -108,7 +108,7 @@ control 'cis-dil-benchmark-2.2.1.3' do
   end
 
   describe processes('chronyd') do
-    its(:users) { should cmp 'chrony' }
+    its(:users) { should include /chrony/ }
   end
 end
 
