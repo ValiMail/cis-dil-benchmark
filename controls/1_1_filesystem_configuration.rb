@@ -99,7 +99,6 @@ control 'cis-dil-benchmark-1.1.1.6' do
 
   describe linux_module('squashfs') do
     it { should_not be_loaded }
-    its(:command) { should match(%r{^install /bin/true$}) }
   end
 end
 
@@ -127,7 +126,6 @@ control 'cis-dil-benchmark-1.1.1.8' do
 
   describe linux_module('vfat') do
     it { should_not be_loaded }
-    its(:command) { should match(%r{^install /bin/true$}) }
   end
 end
 
