@@ -69,23 +69,6 @@ control 'cis-dil-benchmark-4.2.1.3' do
   end
 end
 
-control 'cis-dil-benchmark-4.2.1.4' do
-  title 'Ensure rsyslog is configured to send logs to a remote log host'
-  desc  "The rsyslog utility supports the ability to send logs it gathers to a remote log host running syslogd(8) or to receive messages from remote hosts, reducing administrative overhead.\n\nRationale: Storing log data on a remote host protects log integrity from local attacks. If an attacker gains root access on the local system, they could tamper with or remove log data that is stored on the local system"
-  impact 1.0
-
-  tag cis: 'distribution-independent-linux:4.2.1.4'
-  tag level: 1
-
-  only_if do
-    package('rsyslog').installed? || command('rsyslogd').exist?
-  end
-
-  describe file('/etc/rsyslog.conf') do
-    its(:content) { should match(/^\s*\*\.\*\s+@/) }
-  end
-end
-
 control 'cis-dil-benchmark-4.2.1.5' do
   title 'Ensure remote rsyslog messages are only accepted on designated log hosts.'
   desc  "By default, rsyslog does not listen for log messages coming in from remote systems. The ModLoad tells rsyslog to load the imtcp.so module so it can listen over a network via TCP. The InputTCPServerRun option instructs rsyslogd to listen on the specified TCP port.\n\nRationale: The guidance in the section ensures that remote log hosts are configured to only accept rsyslog data from hosts within the specified domain and that those systems that are not designed to be log hosts do not accept any remote rsyslog messages. This provides protection from spoofed log data and ensures that system administrators are reviewing reasonably complete syslog data in a central location."
