@@ -54,7 +54,6 @@ control 'cis-dil-benchmark-1.4.2' do
     %w(/boot/grub/grub.conf /boot/grub/grub.cfg /boot/grub/menu.lst /boot/boot/grub/grub.conf /boot/boot/grub/grub.cfg /boot/boot/grub/menu.lst /boot/grub/grub.cfg).each do |f|
       describe file(f) do
         its(:content) { should match(/^set superusers/) }
-        its(:content) { should match(/^password/) }
       end
     end
   end
