@@ -233,24 +233,6 @@ control 'cis-dil-benchmark-5.2.14' do
   end
 end
 
-control 'cis-dil-benchmark-5.2.15' do
-  title 'Ensure SSH access is limited'
-  desc "There are several options available to limit which users and group can access the system via SSH. It is recommended that at least one of the following options be leveraged:
-  AllowUsers\nThe AllowUsers variable gives the system administrator the option of allowing specific users to ssh into the system. The list consists of comma separated user names. Numeric user IDs are not recognized with this variable. If a system administrator wants to restrict user access further by only allowing the allowed users to log in from a particular host, the entry can be specified in the form of user@host. AllowGroups\nThe AllowGroups variable gives the system administrator the option of allowing specific groups of users to ssh into the system. The list consists of comma separated group names. Numeric group IDs are not recognized with this variable. DenyUsers\nThe DenyUsers variable gives the system administrator the option of denying specific users to ssh into the system. The list consists of comma separated user names. Numeric user IDs are not recognized with this variable. If a system administrator wants to restrict user access further by specifically denying a user's access from a particular host, the entry can be specified in the form of user@host. DenyGroups\nThe DenyGroups variable gives the system administrator the option of denying specific groups of users to ssh into the system. The list consists of comma separated group names. Numeric group IDs are not recognized with this variable.\n\nRationale: Restricting which users can remotely access the system via SSH will help ensure that only authorized users access the system."
-  impact 1.0
-
-  tag cis: 'distribution-independent-linux:5.2.15'
-  tag level: 1
-
-  describe.one do
-    %w(AllowUsers AllowGroups DenyUsers DenyGroups).each do |p|
-      describe sshd_config do
-        its(p) { should_not be_nil }
-      end
-    end
-  end
-end
-
 control 'cis-dil-benchmark-5.2.16' do
   title 'Ensure SSH warning banner is configured'
   desc  "The Banner parameter specifies a file whose contents must be sent to the remote user before authentication is permitted. By default, no banner is displayed.\n\nRationale: Banners are used to warn connecting users of the particular site's policy regarding connection. Presenting a warning message prior to the normal user login may assist the prosecution of trespassers on the computer system."
