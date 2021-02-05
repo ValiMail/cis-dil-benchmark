@@ -23,28 +23,28 @@ shadow_files << '/usr/share/baselayout/shadow' if file('/etc/nsswitch.conf').con
 passwd_files = ['/etc/passwd']
 passwd_files << '/usr/share/baselayout/passwd' if file('/etc/nsswitch.conf').content =~ /^passwd:\s+(\S+\s+)*usrfiles/
 
-control 'cis-dil-benchmark-5.4.1.1' do
-  title 'Ensure password expiration is 90 days or less'
-  desc  "The PASS_MAX_DAYS parameter in /etc/login.defs allows an administrator to force passwords to expire once they reach a defined age. It is recommended that the PASS_MAX_DAYS parameter be set to less than or equal to 90 days.\n\nRationale: The window of opportunity for an attacker to leverage compromised credentials or successfully compromise credentials via an online brute force attack is limited by the age of the password. Therefore, reducing the maximum age of a password also reduces an attacker's window of opportunity."
-  impact 1.0
-
-  tag cis: 'distribution-independent-linux:5.4.1.1'
-  tag level: 1
-
-  describe login_defs do
-    its('PASS_MAX_DAYS') { should cmp <= 90 }
-  end
-
-  shadow_files.each do |f|
-    shadow(f).user(/.+/).entries.each do |user|
-      next if (user.password && %w(* !)).any?
-
-      describe user do
-        its(:max_days) { should cmp <= 90 }
-      end
-    end
-  end
-end
+#control 'cis-dil-benchmark-5.4.1.1' do
+#  title 'Ensure password expiration is 90 days or less'
+#  desc  "The PASS_MAX_DAYS parameter in /etc/login.defs allows an administrator to force passwords to expire once they reach a defined age. It is recommended that the PASS_MAX_DAYS parameter be set to less than or equal to 90 days.\n\nRationale: The window of opportunity for an attacker to leverage compromised credentials or successfully compromise credentials via an online brute force attack is limited by the age of the password. Therefore, reducing the maximum age of a password also reduces an attacker's window of opportunity."
+#  impact 1.0
+#
+#  tag cis: 'distribution-independent-linux:5.4.1.1'
+#  tag level: 1
+#
+#  describe login_defs do
+#    its('PASS_MAX_DAYS') { should cmp <= 90 }
+#  end
+#
+#  shadow_files.each do |f|
+#    shadow(f).user(/.+/).entries.each do |user|
+#      next if (user.password && %w(* !)).any?
+#
+#      describe user do
+#        its(:max_days) { should cmp <= 90 }
+#      end
+#    end
+#  end
+#end
 
 control 'cis-dil-benchmark-5.4.1.2' do
   title 'Ensure minimum days between password changes is 7 or more'
