@@ -77,19 +77,20 @@ control 'cis-dil-benchmark-3.3.2' do
   end
 end
 
-control 'cis-dil-benchmark-3.3.3' do
-  title 'Ensure IPv6 is disabled'
-  desc  "Although IPv6 has many advantages over IPv4, few organizations have implemented IPv6.\n\nRationale: If IPv6 is not to be used, it is recommended that it be disabled to reduce the attack surface of the system."
-  impact 0.0
+#We want to be able to use IPv6
+#control 'cis-dil-benchmark-3.3.3' do
+#  title 'Ensure IPv6 is disabled'
+#  desc  "Although IPv6 has many advantages over IPv4, few organizations have implemented IPv6.\n\nRationale: If IPv6 is not to be used, it is recommended that it be disabled to reduce the attack surface of the system."
+#  impact 0.0
 
-  tag cis: 'distribution-independent-linux:3.3.3'
-  tag level: 1
+#  tag cis: 'distribution-independent-linux:3.3.3'
+#  tag level: 1
 
-  describe.one do
-    %w(/boot/grub/grub.conf /boot/grub/grub.cfg /boot/grub/menu.lst /boot/boot/grub/grub.conf /boot/boot/grub/grub.cfg /boot/boot/grub/menu.lst).each do |f|
-      describe file(f) do
-        its(:content) { should match(/ipv6\.disable=1/) }
-      end
-    end
-  end
-end
+#  describe.one do
+#    %w(/boot/grub/grub.conf /boot/grub/grub.cfg /boot/grub/menu.lst /boot/boot/grub/grub.conf /boot/boot/grub/grub.cfg /boot/boot/grub/menu.lst).each do |f|
+#      describe file(f) do
+#        its(:content) { should match(/ipv6\.disable=1/) }
+#      end
+#    end
+#  end
+#end
